@@ -2,14 +2,13 @@ const User = require("../models/userModule")
 const jwt = require("jsonwebtoken");
 const asyncHandler = require("express-async-handler");
 
-const authMiddleware = asyncHandler(async(req, res,next)=>{
+const authMiddleware = asyncHandler(async (req, res, next) => {
     let token;
-    if (req?.header?.authorization?.startsWith("Bearer")) {
+    if (req?.headers?.authorization?.startsWith("Bearer")) {
         token = req?.headers?.authorization?.split(" ")[1]
         try {
-            if(token){
+            if (token) {
                 const decoded = jwt.verify(token, process.env.ACCESS_TOKEN);
-                console.log(decoded);
                 const user = await User.findById(decoded?.id)
                 req.user = user;
                 next()
@@ -18,19 +17,19 @@ const authMiddleware = asyncHandler(async(req, res,next)=>{
             throw new Error("Not Authorized token expired, Please Login again")
         }
     }
-    else{
+    else {
         throw new Error("There is no token attached to header")
     }
 })
 
-const isAdmin = asyncHandler ( async(req, res, next)=>{
-    const {email} = req.email;
-    const adminUser = await User.findOne({email});
-    if(adminUser.role !== "admin"){
+const isAdmin = asyncHandler(async (req, res, next) => {
+    const { email } = req.user;
+    const adminUser = await User.findOne({ email });
+    if (adminUser.role !== "admin") {
         throw new Error("You are not an Admin")
-    }else{
+    } else {
         next()
     }
 
 })
-module.exports = {authMiddleware, isAdmin}
+module.exports = { authMiddleware, isAdmin }

@@ -7,8 +7,10 @@ require("dotenv").config()
 const cors = require('cors');
 const dbConnect = require('./config/dbConnect');
 const port = process.env.PORT || 5000
+
 const authRouter = require("./routes/authRoute");
-const productRouter = require("./routes/productRoute")
+const productRouter = require("./routes/productRoute");
+const blogRouter = require("./routes/blogRoute")
 const bodyParser = require('body-parser');
 const { notFound, errorHandler } = require('./middleware/errorHandler');
 
@@ -22,6 +24,7 @@ app.use(express.static("public"));
 
 app.use("/api/user", authRouter)
 app.use("/api/product", productRouter)
+app.use("/api/blog", blogRouter)
 app.use(notFound)
 app.use(errorHandler)
 

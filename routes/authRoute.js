@@ -15,7 +15,7 @@ const { authMiddleware, isAdmin } = require("../middleware/authMiddleware")
 router.post("/register", createUser);
 router.post("/login", loginUserCtrl);
 router.get("/all-users", getAllUser);
-router.get("/:id", authMiddleware, getSingleUser);
-router.delete("/:id", deleteSingleUser);
+router.get("/:id", authMiddleware, isAdmin, getSingleUser);
+router.delete("/:id", authMiddleware, isAdmin, deleteSingleUser);
 router.put("/edit-user", authMiddleware, isAdmin, updateSingleUser);
 module.exports = router;

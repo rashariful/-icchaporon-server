@@ -42,6 +42,38 @@ const getAllProduct = asyncHandler(async(req, res)=>{
         throw new Error(error.message)
     }
 })
+// update product
+const updateProduct = asyncHandler(async( req, res)=>{
+    const {id} = req.params;
+    try {
+        const updateaProduct = await Product.findByIdAndUpdate(id, req.body, {
+            new: true,
+
+        })
+        res.json({
+            success: true,
+            message: "Successfully updated Product",
+            data: updateaProduct
+        })
+    } catch (error) {
+        throw new Error(error.message)
+    }
+})
+// Delete Product by id
+const deleteProduct = asyncHandler(async ( req, res)=>{
+    const {id} = req.params;
+    try {
+        const deleteaProduct = await Product.findByIdAndDelete(id)
+        res.json({
+            success: true,
+            message: "Successfully Deleted Product",
+            data: deleteaProduct
+        })
+    } catch (error) {
+        throw new Error(error.message)
+
+    }
+})
 // Filter products
 const filterProduct = asyncHandler(async( req, res)=>{
     try {
@@ -55,5 +87,7 @@ module.exports = {
     createProduct, 
     getSingleProduct,
     getAllProduct,
-    filterProduct 
+    filterProduct,
+    updateProduct,
+    deleteProduct 
     }
