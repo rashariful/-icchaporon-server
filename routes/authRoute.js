@@ -18,4 +18,5 @@ router.get("/all-users", getAllUser);
 router.get("/:id", authMiddleware, isAdmin, getSingleUser);
 router.delete("/:id", authMiddleware, isAdmin, deleteSingleUser);
 router.put("/edit-user", authMiddleware, isAdmin, updateSingleUser);
+
 module.exports = router;

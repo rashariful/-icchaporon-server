@@ -6,9 +6,7 @@ const { ObjectId } = require('mongodb');
 var userSchema = new mongoose.Schema({
     name:{
         type:String,
-        required:true,
-        unique:true,
-        index:true,
+        required:true
     },
     email:{
         type:String,
@@ -17,7 +15,6 @@ var userSchema = new mongoose.Schema({
     },
     mobile:{
         type:String,
-        required:true,
         unique:true,
     },
     password:{

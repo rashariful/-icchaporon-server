@@ -1,7 +1,4 @@
 const express = require('express');
-const mongoose = require('mongoose');
-
-const { MongoClient, ObjectId } = require('mongodb');
 const app = express();
 require("dotenv").config()
 const cors = require('cors');
@@ -22,15 +19,11 @@ app.use(bodyParser.json())
 app.use(express.json())
 app.use(express.static("public"));
 
-app.use("/api/user", authRouter)
-app.use("/api/product", productRouter)
-app.use("/api/blog", blogRouter)
+app.use("/api/v1/user", authRouter)
+app.use("/api/v1/products", productRouter)
+app.use("/api/v1/blog", blogRouter)
 app.use(notFound)
 app.use(errorHandler)
-
-
-
-
 
 
 
@@ -129,15 +122,6 @@ app.use(errorHandler)
 //         console.log(error.message);
 //     }
 // })
-
-
-
-
-
-
-
-
-
 
 
 app.get('/', (req, res) => {
